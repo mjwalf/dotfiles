@@ -13,9 +13,6 @@ install zsh
 
 tap homebrew/versions
 
-tap phinze/cask
-install brew-cask
-
 install caskroom/cask/brew-cask
 
 cask install dropbox --appdir=/Applications --force
