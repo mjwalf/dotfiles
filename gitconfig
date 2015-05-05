@@ -38,3 +38,6 @@
   which-release = name-rev --name-only
   in-branch = branch --contains
   in-upstream = cherry -v master
+
+[url "git@github.com:"]
+    insteadOf = https://github.com/
