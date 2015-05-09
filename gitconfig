@@ -39,5 +39,5 @@
   in-branch = branch --contains
   in-upstream = cherry -v master
 
-[url "git@github.com:"]
-    insteadOf = https://github.com/
+[url "git@github.com:hailocab/"]
+    insteadOf = https://github.com/hailocab/
