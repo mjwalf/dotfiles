@@ -13,3 +13,6 @@ export LC_ALL="en_GB.UTF-8"
 export LANG="en_GB.UTF-8"
 
 export CC=gcc
+
+export PATH="$HOME/.python/bin:/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
