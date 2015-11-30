@@ -21,6 +21,7 @@
 [core]
   autocrlf = false
   quotepath = false
+  pager = diff-highlight | diff-so-fancy | less -r
 
 [github]
   user = sthulb
