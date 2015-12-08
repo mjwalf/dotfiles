@@ -42,3 +42,5 @@
 
 [url "git@github.com:hailocab/"]
     insteadOf = https://github.com/hailocab/
+[http]
+	cookiefile = /Users/sthulb/.gitcookies
