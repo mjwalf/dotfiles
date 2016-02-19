@@ -11,16 +11,7 @@ Host 10.*
   StrictHostKeyChecking no
   UserKnownHostsFile /dev/null
   IdentityFile /Users/%u/.ssh/hailocab.net/%r/id_rsa
-  ProxyCommand >&1; h="%h"; exec ssh -q bastion.$(hlist --output=ssh $h | cut -d"|" -f2).i.$(hlist --output=ssh $h | cut -d"|" -f3 | sed 's/dev/meta/').hailocab.net nc $(echo $h) %p	12:08 PM
-
-Host ip-*.??-*-?.i.*.hailocab.net
-  User simon.thulbourn
-  Port 22
-  ForwardAgent yes
-  StrictHostKeyChecking no
-  UserKnownHostsFile /dev/null
-  IdentityFile /Users/%u/.ssh/hailocab.net/%r/id_rsa
-  ProxyCommand >&1; h="%h"; exec ssh -q bastion.$(echo $h | cut -d. -f 2 | cut -d/ -f 1).i.$(echo $h | cut -d. -f 4).hailocab.net nc $(echo ${h%%.*} | tr - . | cut -d. -f 2,3,4,5) %p
+  ProxyCommand >&1; h="%h"; exec ssh -q $(ssh-bastion -ip $h) nc %h %p
 
 Host *
   IdentityFile /Users/%u/.ssh/%h/%r/id_rsa
