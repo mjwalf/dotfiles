@@ -9,3 +9,7 @@ function md5() {
 alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
 alias yj="ruby -rjson -ryaml -e \"puts YAML.load(STDIN.read).to_json\""
+
+function weather() {
+  curl -s http://wttr.in/$@ | head -7 | tail -6
+}
