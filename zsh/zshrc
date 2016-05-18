@@ -10,3 +10,5 @@ stty -ixon
 for c in $ZSH_DOTFILES/conf/*.zsh; do
   source $c
 done
+
+source "$HOME/.secret.zsh"
