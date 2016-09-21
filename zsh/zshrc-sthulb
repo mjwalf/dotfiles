@@ -1,0 +1,14 @@
+# set dotfiles paths
+ZSH_DOTFILES="$HOME/.dotfiles/zsh"
+
+# Bring in the zsh functions from Homebrew
+fpath=($ZSH_DOTFILES/functions /usr/local/share/zsh/site-functions $fpath)
+
+# http://www.openbsd.org/cgi-bin/man.cgi?query=stty&sektion=1
+stty -ixon
+
+for c in $ZSH_DOTFILES/conf/*.zsh; do
+  source $c
+done
+
+source "$HOME/.secret.zsh"
