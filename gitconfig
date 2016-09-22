@@ -24,11 +24,11 @@
   pager = diff-highlight | diff-so-fancy | less -r
 
 [github]
-  user = sthulb
+  user = mjwalf
 
 [user]
-  name = Simon Thulbourn
-  email = simon+github@thulbourn.com
+  name = Mark Walford
+  email = mjwalf@kramit.net.au
 
 [alias]
   st = status -sb
@@ -43,4 +43,4 @@
 [url "git@github.com:hailocab/"]
     insteadOf = https://github.com/hailocab/
 [http]
-	cookiefile = /Users/sthulb/.gitcookies
+	cookiefile = /Users/mjwalf/.gitcookies
