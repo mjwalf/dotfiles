@@ -104,9 +104,11 @@ if [ -f /Users/mjwalf/google-cloud-sdk/path.zsh.inc ]; then
   source '/Users/mjwalf/google-cloud-sdk/path.zsh.inc'
 fi
 
+# PYTHON
+export PYENV_ROOT=/usr/local/var/pyenv
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
-#eval "$(pyenv init -)"
-#eval "$(pyenv virtualenv-init -)"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 # The next line enables shell command completion for gcloud.
 if [ -f /Users/mjwalf/google-cloud-sdk/completion.zsh.inc ]; then
