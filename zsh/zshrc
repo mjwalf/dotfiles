@@ -62,7 +62,6 @@ export PATH="$PATH:/usr/local/opt/go/libexec/bin"
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # export MANPATH="/usr/local/man:$MANPATH"
-export GITHUB_AUTH_TOKEN="4eb1aaa1dacf6dcdbaa18fb7be043278a1d41c4e"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 #
