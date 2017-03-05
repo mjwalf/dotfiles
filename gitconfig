@@ -23,13 +23,6 @@
   quotepath = false
   pager = diff-highlight | diff-so-fancy | less -r
 
-[github]
-  user = mjwalf
-
-[user]
-  name = Mark Walford
-  email = mjwalf@kramit.net.au
-
 [alias]
   st = status -sb
   conflicts = "!git status --short | grep \"^UU\""
@@ -40,7 +33,18 @@
   in-branch = branch --contains
   in-upstream = cherry -v master
 
-[url "git@github.com:hailocab/"]
-    insteadOf = https://github.com/hailocab/
 [http]
 	cookiefile = /Users/mjwalf/.gitcookies
+
+[user]
+    name = Mark Walford
+    user = mjwalf
+    email = mark@kramit.com.au
+    IdentityFile = ~/.ssh/github.com/id_rsa
+
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+
+[include]
+    #Put Username / Creds / Token in this file
+    path = ~/.localsecrets
