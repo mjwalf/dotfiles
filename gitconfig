@@ -48,3 +48,6 @@
 [include]
     #Put Username / Creds / Token in this file
     path = ~/.localsecrets
+
+[core]
+	excludesfile = /Users/mjwalf/dotfiles/gitignore
