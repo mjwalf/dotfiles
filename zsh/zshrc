@@ -92,6 +92,9 @@ export EDITOR=/Applications/Visual\ Studio\ Code.app
 # Shared env vars
 source ~/.common_env
 
+#AWS Auto Complete
+source /usr/local/bin/aws_zsh_completer.sh
+
 # Aliases
 alias o="open"
 alias dockyr='docker run -d -p 8888:8888 -v $HOME/yr/your-round:/code --env DATABASE_PASSWORD=$YR_DB_PASS --env AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY --env AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID yrapp/yr_docker'
