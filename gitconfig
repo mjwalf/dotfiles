@@ -37,16 +37,12 @@
 	cookiefile = /Users/mjwalf/.gitcookies
 
 [user]
-    name = Mark Walford
-    user = mjwalf
-    email = mark@kramit.com.au
     IdentityFile = ~/.ssh/github.com/id_rsa
 
 [url "git@github.com:"]
     insteadOf = https://github.com/
 
 [include]
-    #Put Username / Creds / Token in this file
     path = ~/.localsecrets
 
 [core]
