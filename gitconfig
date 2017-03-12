@@ -36,9 +36,6 @@
 [http]
 	cookiefile = /Users/mjwalf/.gitcookies
 
-[user]
-    IdentityFile = ~/.ssh/github.com/id_rsa
-
 [url "git@github.com:"]
     insteadOf = https://github.com/
 
