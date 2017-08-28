@@ -39,6 +39,9 @@
 [url "git@github.com:"]
     insteadOf = https://github.com/
 
+[url "git@bitbucket.org:"]
+    insteadOf = https://mjwalf-haylix@bitbucket.org/
+
 [include]
     path = ~/.localsecrets
 
