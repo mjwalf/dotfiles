@@ -6,7 +6,7 @@ export EDITOR="vim"
 
 export TERM="screen-256color"
 
-export GITHUB_USER="sthulb"
+export GITHUB_USER="mjwalf"
 
 # Set language to British
 export LC_ALL="en_GB.UTF-8"
