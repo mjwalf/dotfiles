@@ -7,6 +7,14 @@
 *.o
 *.so
 
+# vscode  #
+#################
+.vscode
+*.vscode
+
+# local dev config files #
+.python-version
+
 # Packages #
 ############
 # it's better to unpack these files and commit the raw source
