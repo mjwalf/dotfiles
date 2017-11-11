@@ -47,7 +47,7 @@ HIST_STAMPS="dd/mm/yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git github brew ansible docker gcloud tmux aws web-search colorize virtualbox)
+plugins=(git github brew ansible docker gcloud tmux aws web-search colorize virtualbox terraform)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -94,8 +94,8 @@ fi
 source ~/.dotfiles/haylix/common
 source ~/.dotfiles/haylix/buchanan-china
 
-#AWS Auto Complete
-source /usr/local/bin/aws_zsh_completer.sh
+#AWS Auto Complete# Deprecated?
+#source /usr/local/bin/aws_zsh_completer.sh
 
 # Aliases
 alias o="open"
@@ -106,6 +106,7 @@ alias dockkill='docker kill $(docker ps -q)'
 alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
 alias lock='/System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend'
+alias codei='/Applications/Visual\ Studio\ Code\ -\ Insiders.app/Contents/Resources/app/bin/code'
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f /Users/mjwalf/google-cloud-sdk/path.zsh.inc ]; then
