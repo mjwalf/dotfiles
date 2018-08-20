@@ -92,7 +92,6 @@ fi
 # Shared env vars
 #source ~/.common_env
 source ~/.dotfiles/haylix/common
-source ~/.dotfiles/haylix/buchanan-china
 
 #AWS Auto Complete# Deprecated?
 #source /usr/local/bin/aws_zsh_completer.sh
