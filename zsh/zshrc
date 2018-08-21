@@ -91,7 +91,6 @@ fi
 
 # Shared env vars
 #source ~/.common_env
-source ~/.dotfiles/haylix/common
 
 #AWS Auto Complete# Deprecated?
 #source /usr/local/bin/aws_zsh_completer.sh
@@ -122,18 +121,3 @@ eval "$(pyenv virtualenv-init -)"
 if [ -f /Users/mjwalf/google-cloud-sdk/completion.zsh.inc ]; then
   source '/Users/mjwalf/google-cloud-sdk/completion.zsh.inc'
 fi
-
-
-
-# kube cluster  - Where to place your cluster
-REGION=ap-southeast-2
-AZ=ap-southeast-2a
-
-# What to name your CloudFormation stack
-STACK=Heptio-Kubernetes
-
-# Which SSH key you want to allow access to the cluster
-KEYNAME=puppet
-
-# What IP addresses should be able to connect over SSH and over the Kubernetes API
-INGRESS=0.0.0.0/0
