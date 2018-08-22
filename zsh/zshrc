@@ -105,6 +105,7 @@ alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall 
 alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
 alias lock='/System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend'
 alias codei='/Applications/Visual\ Studio\ Code\ -\ Insiders.app/Contents/Resources/app/bin/code'
+alias laptop-osx='ansible-playbook ~/Developer/config/src/github.com/mjwalf/laptop-osx/ansible/playbook.yml -e install_user=$(whoami) -i ~/Developer/config/src/github.com/mjwalf/laptop-osx/ansible/hosts -K'
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f /Users/mjwalf/google-cloud-sdk/path.zsh.inc ]; then
