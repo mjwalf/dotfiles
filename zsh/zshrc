@@ -109,7 +109,11 @@ alias codei='/Applications/Visual\ Studio\ Code\ -\ Insiders.app/Contents/Resour
 
 # Funcs
 function laptop-osx () {
-  ansible-playbook '/Users/'$(whoami)'/Developer/config/src/github.com/mjwalf/laptop-osx/ansible/playbook.yml' -e install_user="$(whoami)" -i '/Users/'$(whoami)'/Developer/config/src/github.com/mjwalf/laptop-osx/ansible/hosts' -K --tags="$1"
+  if [ "$1" = "" ]; then
+    ansible-playbook '/Users/'$(whoami)'/Developer/config/src/github.com/mjwalf/laptop-osx/ansible/playbook.yml' -e install_user="$(whoami)" -i '/Users/'$(whoami)'/Developer/config/src/github.com/mjwalf/laptop-osx/ansible/hosts' -K
+  else
+    ansible-playbook '/Users/'$(whoami)'/Developer/config/src/github.com/mjwalf/laptop-osx/ansible/playbook.yml' -e install_user="$(whoami)" -i '/Users/'$(whoami)'/Developer/config/src/github.com/mjwalf/laptop-osx/ansible/hosts' -K --tags="$1"
+  fi
 }
 
 # The next line updates PATH for the Google Cloud SDK.
