@@ -22,10 +22,14 @@
 [branch]
   autosetuprebase = always
 
+[fetch]
+  prune = true
+
 [core]
   autocrlf = false
   quotepath = false
-  pager = diff-highlight | diff-so-fancy | less -r
+  #pager = diff-highlight | diff-so-fancy | less -r
+  pager = diff-so-fancy | less -r
 
 [alias]
   st = status -sb
