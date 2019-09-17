@@ -55,3 +55,16 @@
 
 [core]
 	excludesfile = /Users/mjwalf/.dotfiles/gitignore
+
+# Comment: Start of "Extra Block"
+# Comment: This is to unlock VSCode as your git diff and git merge tool
+[merge]
+    tool = vscode
+[mergetool "vscode"]
+    cmd = code --wait $MERGED
+[diff]
+    tool = vscode
+[difftool "vscode"]
+    cmd = code --wait --diff $LOCAL $REMOTE
+# VSCode Difftool
+## End of extra block
