@@ -67,7 +67,7 @@ HIST_STAMPS="dd/mm/yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git github brew ansible docker tmux aws web-search colorize virtualbox terraform kubectl minikube kops helm zsh-autosuggestions)
+plugins=(git github brew ansible docker tmux aws web-search colorize terraform kubectl minikube kops helm zsh-autosuggestions)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -88,6 +88,8 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 
 export PATH="/usr/local/sbin:/usr/local/opt/ruby/bin:$PATH"
+
+export PATH="$PATH:/Users/mjwalf/versent/au/au-toolbox"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -146,6 +148,7 @@ eval "$(pyenv virtualenv-init -)"
 #
 # Aliases
 alias o="open"
+alias e="eksctl"
 alias dockyr='docker run -d -p 8888:8888 -v $HOME/yr/your-round:/code --env DATABASE_PASSWORD=$YR_DB_PASS --env AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY --env AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID yrapp/yr_docker'
 alias dockyrd='docker run -p 8888:8888 -v $HOME/yr/your-round:/code --env DATABASE_PASSWORD=$YR_DB_PASS --env AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY --env AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID yrapp/yr_docker'
 alias dockyrbash='docker exec -ti $(docker ps -q) bash'

@@ -1,0 +1,52 @@
+{
+	"name": "jenkinsfile-support",
+	"displayName": "Jenkinsfile Support",
+	"description": "Adds syntax highlighting support for Jenkinsfile's. In this version, it's the same like Groovy is.",
+	"version": "0.1.0",
+	"license": "MIT",
+	"publisher": "secanis",
+	"engines": {
+		"vscode": "^1.5.0"
+	},
+	"categories": [
+		"Languages"
+	],
+	"homepage": "https://bitbucket.org/secanis/jenkinsfile-support/overview",
+	"repository": {
+		"type": "git",
+		"url": "https://bitbucket.org/secanis/jenkinsfile-support.git"
+	},
+	"keywords": [
+		"Jenkinsfile",
+		"jenkinsfile",
+		"Jenkins"
+	],
+	"contributes": {
+		"languages": [
+			{
+				"id": "jenkins",
+				"aliases": [
+					"Jenkinsfile",
+					"jenkinsfile"
+				],
+				"extensions": [
+					"Jenkinsfile"
+				],
+				"configuration": "./language-configuration.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "jenkins",
+				"scopeName": "source.groovy",
+				"path": "./syntaxes/groovy.tmLanguage"
+			}
+		]
+	},
+	"icon": "jenkins.png",
+	"__metadata": {
+		"id": "0229f987-83fd-4576-aa7f-566747840393",
+		"publisherId": "16710c74-f12f-42d5-9560-a2273f9ff0b8",
+		"publisherDisplayName": "secanis.ch"
+	}
+}

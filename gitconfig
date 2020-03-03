@@ -1,6 +1,6 @@
 [user]
   name = "Mark Walford"
-  email = mark.walford@fairfaxmedia.com.au
+  email = mark.walford@versent.com.au
 
 [color]
   ui = true
@@ -48,7 +48,7 @@
     insteadOf = https://github.com/
 
 [url "git@bitbucket.org:"]
-    insteadOf = https://mjwalf-fairfax@bitbucket.org/
+    insteadOf = https://mjwalf-versent@bitbucket.org/
 
 [include]
     path = ~/.localsecrets

@@ -1,0 +1,68 @@
+{
+	"name": "cloudformation-yaml-snippets",
+	"displayName": "Cloudformation YAML Snippets for VS Code",
+	"description": "The complete YAML snippet library for Cloudformation based on the AWS CloudFormation Resource Specification",
+	"author": "Danny Steenman",
+	"version": "1.31.0",
+	"publisher": "dsteenman",
+	"icon": "images/AWS-CloudFormation-Icon.png",
+	"homepage": "https://dannysteenman.com",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/dsteenman/cloudformation-yaml-snippets.git"
+	},
+	"engines": {
+		"vscode": "^1.31.0"
+	},
+	"galleryBanner": {
+		"color": "#2B2C33",
+		"theme": "dark"
+	},
+	"categories": [
+		"Formatters",
+		"Other",
+		"Programming Languages",
+		"Snippets"
+	],
+	"keywords": [
+		"amazon",
+		"autocompletion",
+		"aws",
+		"cfn",
+		"cloudformation",
+		"multi-root ready",
+		"property",
+		"resource",
+		"specification",
+		"stack",
+		"template",
+		"yaml",
+		"yml"
+	],
+	"contributes": {
+		"snippets": [
+			{
+				"language": "yaml",
+				"path": "./snippets/custom.json"
+			},
+			{
+				"language": "yaml",
+				"path": "./snippets/extension.json"
+			},
+			{
+				"language": "yaml",
+				"path": "./snippets/parameter-types.json"
+			},
+			{
+				"language": "yaml",
+				"path": "./snippets/resource-types.json"
+			}
+		]
+	},
+	"__metadata": {
+		"id": "58b2ca33-37f6-44b0-a759-b6208ff244b8",
+		"publisherId": "e40bb66b-cdaf-4e15-8898-770b0d73e2f2",
+		"publisherDisplayName": "Danny Steenman"
+	}
+}

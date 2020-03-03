@@ -1,0 +1,44 @@
+{
+	"name": "node-extension-pack",
+	"displayName": "ITMCDev NodeJS Extension Pack",
+	"description": "A collection of extensions for developming with NodeJS inside ITMC",
+	"version": "0.0.7",
+	"publisher": "itmcdev",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/itmcdev/vscode-extensions"
+	},
+	"engines": {
+		"vscode": "^1.26.0"
+	},
+	"icon": "icon.png",
+	"galleryBanner": {
+		"color": "#f66f62",
+		"theme": "dark"
+	},
+	"categories": [
+		"Extension Packs"
+	],
+	"keywords": [
+		"code",
+		"node",
+		"itmcdev"
+	],
+	"extensionPack": [
+		"christian-kohler.path-intellisense",
+		"eg2.vscode-npm-script",
+		"kohler.npm-intellisense",
+		"leizongmin.node-module-intellisense",
+		"orta.vscode-jest",
+		"steoates.autoimport",
+		"pflannery.vscode-versionlens",
+		"zxh404.vscode-proto3",
+		"itmcdev.generic-extension-pack",
+		"itmcdev.html-extension-pack"
+	],
+	"__metadata": {
+		"id": "f8c27736-5169-4729-a898-c66bd3d1252b",
+		"publisherId": "95a78ebc-417f-4395-872f-48ce9fb681b2",
+		"publisherDisplayName": "itmcdev"
+	}
+}
