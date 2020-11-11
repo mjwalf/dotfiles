@@ -45,6 +45,5 @@ ehthumbs.db
 Thumbs.db
 
 # Terraform
-terraform.tfvars
 .terraform/
 *.tfstate.*
