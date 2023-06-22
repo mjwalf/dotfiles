@@ -1,6 +1,6 @@
 [user]
   name = "Mark Walford"
-  email = mark.walford@versent.com.au
+  email = mark.walford@o8t.com
 
 [color]
   ui = true
@@ -47,8 +47,8 @@
 [url "git@github.com:"]
     insteadOf = https://github.com/
 
-[url "git@bitbucket.org:"]
-    insteadOf = https://mjwalf-versent@bitbucket.org/
+[url "git@gitlab.steady-fast.net:"]
+    insteadOf = https://gitlab.steady-fast.net/
 
 [include]
     path = ~/.localsecrets
@@ -68,3 +68,5 @@
     cmd = code --wait --diff $LOCAL $REMOTE
 # VSCode Difftool
 ## End of extra block
+[commit]
+	gpgsign = true
