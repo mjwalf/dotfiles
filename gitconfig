@@ -1,6 +1,6 @@
 [user]
   name = "Mark Walford"
-  email = mark.walford@o8t.com
+	email = mark.walford@o8t.com
 
 [color]
   ui = true
@@ -42,7 +42,7 @@
   in-upstream = cherry -v master
 
 [http]
-	cookiefile = /Users/mjwalf/.gitcookies
+	cookiefile = /Users/mark.walford/.gitcookies
 
 [url "git@github.com:"]
     insteadOf = https://github.com/
@@ -50,16 +50,23 @@
 [url "git@gitlab.steady-fast.net:"]
     insteadOf = https://gitlab.steady-fast.net/
 
+[url "git@gitlab.com:"]
+    insteadOf = https://gitlab.com/
+
+[url "git@jihulab.com:"]
+    insteadOf = https://jihulab.com/
+
 [include]
     path = ~/.localsecrets
 
 [core]
-	excludesfile = /Users/mjwalf/.dotfiles/gitignore
+	excludesfile = /Users/mark.walford/.dotfiles/gitignore
 
 # Comment: Start of "Extra Block"
 # Comment: This is to unlock VSCode as your git diff and git merge tool
 [merge]
     tool = vscode
+	gpgSign = true
 [mergetool "vscode"]
     cmd = code --wait $MERGED
 [diff]
@@ -70,3 +77,17 @@
 ## End of extra block
 [commit]
 	gpgsign = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[lfs]
+	concurrenttransfers = 3
+	tlstimeout = 30
+	dialtimeout = 30
+	keepalive = 600
+	activitytimeout = 120
+[lfs "transfer"]
+	maxretries = 5
+	retrydelay = 15

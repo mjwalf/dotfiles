@@ -1,3 +1,5 @@
+export GPG_TTY=$TTY
+
 #### TMUX TESTING
 
 # zsh tmux settings
@@ -6,16 +8,18 @@
 
 # # Always work in a tmux session if tmux is installed
 # # https://github.com/chrishunt/dot-files/blob/master/.zshrc
-# if which tmux 2>&1 >/dev/null; then
-#   if [ $TERM != "screen-256color" ] && [  $TERM != "screen" ]; then
-#     tmux attach -t hack || tmux new -s hack; exit
-#   fi
-# fi
+if which tmux 2>&1 >/dev/null; then
+  if [ $TERM != "screen-256color" ] && [  $TERM != "screen" ]; then
+    tmux attach -t hack || tmux new -s hack; exit
+  fi
+fi
 
 ##### END TMUX TEST
 
 # Add the ssh keys stored in the keychain to the session
 ssh-add -A > /dev/null 2>&1
+
+source $(brew --prefix nvm)/nvm.sh
 
 
 # Path to your oh-my-zsh installation.
@@ -67,7 +71,8 @@ HIST_STAMPS="dd/mm/yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git github brew ansible docker tmux aws web-search colorize terraform kubectl minikube kops helm zsh-autosuggestions)
+plugins=(git github brew docker tmux aws colorize terraform kubectl minikube helm zsh-autosuggestions)
+# plugins=()
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -89,7 +94,6 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 export PATH="/usr/local/sbin:/usr/local/opt/ruby/bin:$PATH"
 
-export PATH="$PATH:/Users/mjwalf/versent/au/au-toolbox"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -127,14 +131,14 @@ function laptop-osx () {
 
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f /Users/mjwalf/google-cloud-sdk/path.zsh.inc ]; then
-  source '/Users/mjwalf/google-cloud-sdk/path.zsh.inc'
-fi
+# if [ -f /Users/mjwalf/google-cloud-sdk/path.zsh.inc ]; then
+#   source '/Users/mjwalf/google-cloud-sdk/path.zsh.inc'
+# fi
 
-# The next line enables shell command completion for gcloud.
-if [ -f /Users/mjwalf/google-cloud-sdk/completion.zsh.inc ]; then
-  source '/Users/mjwalf/google-cloud-sdk/completion.zsh.inc'
-fi
+# # The next line enables shell command completion for gcloud.
+# if [ -f /Users/mjwalf/google-cloud-sdk/completion.zsh.inc ]; then
+#   source '/Users/mjwalf/google-cloud-sdk/completion.zsh.inc'
+# fi
 
 # PYTHON
 export PYENV_ROOT=/usr/local/var/pyenv
@@ -158,3 +162,47 @@ alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall F
 alias lock='/System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend'
 alias codei='/Applications/Visual\ Studio\ Code\ -\ Insiders.app/Contents/Resources/app/bin/code'
 alias digg='/usr/local/bin/dig +noedns'
+
+
+eval $(thefuck --alias)
+
+# eval "$(fnm env --use-on-cd --shell zsh)"
+
+
+# Add this to your ~/.bashrc or ~/.bash_aliases file
+# alias start-satellite='function _start_sat() {
+#   if [ -z "$1" ]; then
+#     echo "Error: Satellite name required"
+#     echo "Usage: start-satellite <satellite_name>"
+#     return 1
+#   fi
+  
+#   # Get the instance ID with the matching SatelliteName tag
+#   INSTANCE_ID=$(aws ec2 describe-instances \
+#     --filters "Name=tag:Satellite,Values=true" "Name=tag:SatelliteName,Values=$1" \
+#     --query "Reservations[].Instances[?State.Name!='terminated'].InstanceId" \
+#     --output text)
+  
+#   if [ -z "$INSTANCE_ID" ]; then
+#     echo "Error: No satellite instance found with name $1"
+#     return 1
+#   fi
+  
+#   echo "Starting satellite $1 (Instance ID: $INSTANCE_ID)..."
+  
+#   # Start the instance
+#   aws ec2 start-instances --instance-ids "$INSTANCE_ID"
+  
+#   echo "Waiting for instance to start and initialize..."
+#   aws ec2 wait instance-running --instance-ids "$INSTANCE_ID"
+  
+#   # Get the public IP address
+#   PUBLIC_IP=$(aws ec2 describe-instances \
+#     --instance-ids "$INSTANCE_ID" \
+#     --query "Reservations[].Instances[].PublicIpAddress" \
+#     --output text)
+  
+#   echo "Satellite $1 started successfully!"
+#   echo "Public IP: $PUBLIC_IP"
+#   echo "Note: It may take a few minutes for all services to initialize"
+# }; _start_sat'
