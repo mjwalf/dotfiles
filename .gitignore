@@ -1,1 +1,4 @@
-common_env
+.DS_Store
+.localsecrets
+*.swp
+*.swo

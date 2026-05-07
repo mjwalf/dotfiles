@@ -1,0 +1,15 @@
+# Loaded by ~/.dotfiles/gitconfig via includeIf for repos whose remote URL
+# matches the o8t GitHub org.
+
+[commit]
+  gpgsign = true
+
+[tag]
+  gpgsign = true
+
+# If you switch from GPG to SSH commit signing, set these in ~/.localsecrets
+# to override:
+#   [gpg]
+#     format = ssh
+#   [user]
+#     signingkey = /path/to/key.pub

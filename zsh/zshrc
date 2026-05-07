@@ -1,141 +1,85 @@
-# ~/.zshrc
+# ~/.zshrc -- interactive shell config
+#
+# Login-shell environment (PATH, brew shellenv, etc.) lives in ~/.zprofile.
+# Anything that should be available to non-interactive scripts also belongs
+# in ~/.zprofile, NOT here.
 
 # ------------------------------------------------------------------------------
-# Exports and Environment Variables
+# Editor + per-tool environment
 # ------------------------------------------------------------------------------
 
-# Ensure GPG works correctly with pinentry prompts in terminals
 export GPG_TTY=$(tty)
 
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
-
-# Set preferred editor (use 'code -w' locally, 'vim' over SSH)
-# 'code -w' waits for the file to be closed in VS Code.
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
+elif command -v cursor >/dev/null 2>&1; then
+  export EDITOR='cursor -w'
 else
-  export EDITOR='code -w'
+  export EDITOR='vim'
 fi
 
-# Go Environment (adjust GOPATH if you use a different location)
-export GOPATH="$HOME/go"
-
-# Pyenv Configuration (for Python version management)
-export PYENV_ROOT="$HOME/.pyenv" # Standard path, adjust if different
-
-# Add user bin, Homebrew bin, Go bin, Ruby bin (from Homebrew), and sbin to PATH
-# Prioritize user and Homebrew paths
-export PATH="$HOME/bin:/usr/local/bin:$GOPATH/bin:/usr/local/opt/ruby/bin:/usr/local/sbin:$PATH"
-
-# Add Homebrew paths for Apple Silicon (M1/M2)
-eval $(/opt/homebrew/bin/brew shellenv)
-
-
-# Increase Zsh history size
+# History (oh-my-zsh sets HISTFILE; we just bump the size).
 export HISTSIZE=10000
 export SAVEHIST=10000
-
-# ------------------------------------------------------------------------------
-# Oh My Zsh Configuration
-# ------------------------------------------------------------------------------
-
-# Zsh theme - Using a custom theme path
-# Consider moving custom themes to $ZSH_CUSTOM/themes/your-theme-name
-ZSH_THEME="../../.dotfiles/zsh/apple"
-
-# Display red dots while waiting for completion? (Default: false)
-COMPLETION_WAITING_DOTS="true"
-
-# Timestamp format for history command output (e.g., "dd/mm/yyyy")
-HIST_STAMPS="dd/mm/yyyy"
-
-# Zsh History behaviour options
-# HIST_IGNORE_DUPS: Don't record commands matching previous history entry.
-# HIST_IGNORE_SPACE: Don't record commands starting with a space.
-# HIST_EXPIRE_DUPS_FIRST: Expire duplicate entries first when trimming history.
 setopt HIST_IGNORE_DUPS HIST_IGNORE_SPACE HIST_EXPIRE_DUPS_FIRST
 
-# Oh My Zsh plugins
-# Ensure zsh-autosuggestions & zsh-syntax-highlighting are installed:
-# git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-# git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+# ------------------------------------------------------------------------------
+# Oh My Zsh
+# ------------------------------------------------------------------------------
+
+export ZSH="$HOME/.oh-my-zsh"
+
+# `apple.zsh-theme` is symlinked into ~/.oh-my-zsh/custom/themes/ by the
+# laptop-osx dotfiles role, so OMZ resolves it as a normal custom theme.
+ZSH_THEME="apple"
+
+COMPLETION_WAITING_DOTS="true"
+HIST_STAMPS="dd/mm/yyyy"
+
+# zsh-autosuggestions and zsh-syntax-highlighting are installed by the
+# laptop-osx playbook into $ZSH/custom/plugins/.
 plugins=(
   git
   github
   brew
   docker
-  tmux
   aws
-  colorize
   terraform
   kubectl
-  minikube
   helm
-  zsh-autosuggestions # Provides command suggestions based on history
-  zsh-syntax-highlighting # Adds syntax highlighting to the command line
+  zsh-autosuggestions
+  zsh-syntax-highlighting
 )
 
-# Load Oh My Zsh
-source $ZSH/oh-my-zsh.sh
+source "$ZSH/oh-my-zsh.sh"
 
 # ------------------------------------------------------------------------------
-# Tool Initializations (NVM, Pyenv, etc.)
+# Tool init
 # ------------------------------------------------------------------------------
 
-# Initialize NVM (Node Version Manager) - Installed via Homebrew
-# Source it after Oh My Zsh potentially modifies PATH
-if [ -s "$(brew --prefix nvm)/nvm.sh" ]; then
-  source "$(brew --prefix nvm)/nvm.sh"
-  # Optional: Load NVM automatically in directories with .nvmrc
-  # autoload -U add-zsh-hook
-  # load-nvmrc() {
-  #   local node_version="$(nvm version)"
-  #   local nvmrc_path="$(nvm_find_nvmrc)"
-  #   if [ -n "$nvmrc_path" ]; then
-  #     local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
-  #     if [ "$nvmrc_node_version" = "N/A" ]; then
-  #       nvm install
-  #     elif [ "$nvmrc_node_version" != "$node_version" ]; then
-  #       nvm use
-  #     fi
-  #   elif [ "$node_version" != "$(nvm version default)" ]; then
-  #     echo "Reverting to nvm default version"
-  #     nvm use default
-  #   fi
-  # }
-  # add-zsh-hook chpwd load-nvmrc
-  # load-nvmrc
-fi
-
-
-# Initialize Pyenv
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
-if command -v pyenv-virtualenv-init 1>/dev/null 2>&1; then
-  eval "$(pyenv virtualenv-init -)"
-fi
-
-# Initialize The Fuck (Command line spelling correction)
-if command -v thefuck 1>/dev/null 2>&1; then
-  eval $(thefuck --alias)
+# fzf key bindings + completion (installed via brew).
+if command -v fzf >/dev/null 2>&1; then
+  source <(fzf --zsh) 2>/dev/null
 fi
 
 # ------------------------------------------------------------------------------
-# SSH Agent - Add keys from keychain
+# SSH agent / keychain
 # ------------------------------------------------------------------------------
-
-# Add SSH keys stored in the macOS keychain to the ssh-agent
-# Useful if you have passphrase-protected keys added with `ssh-add -K` (or `ssh-add --apple-use-keychain` on macOS Monterey+)
-ssh-add -A 2>/dev/null
+#
+# Modern macOS (Monterey+) loads keys from the keychain on demand if your
+# ~/.ssh/config has `UseKeychain yes` and `AddKeysToAgent yes`. Use:
+#
+#     ssh-add --apple-load-keychain
+#
+# in a one-off if you need to preload them. Old `ssh-add -A` was removed in
+# macOS Monterey.
 
 # ------------------------------------------------------------------------------
 # Aliases
 # ------------------------------------------------------------------------------
 
 # General
-alias ls='ls -G' # Enable colors for ls on macOS
+alias ls='ls -G'
 alias l='ls -lah'
 alias ll='ls -lh'
 alias la='ls -a'
@@ -143,25 +87,29 @@ alias grep='grep --color=auto'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
-alias o='open' # macOS specific open command
-alias lock='/System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend' # macOS lock screen
-alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
-alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
-alias codei='/Applications/Visual\ Studio\ Code\ -\ Insiders.app/Contents/Resources/app/bin/code' # VS Code Insiders alias
-alias digg='/usr/local/bin/dig +noedns' # Custom dig alias
+alias o='open'
+alias lock='/System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend'
+alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder'
+alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder'
 
-# Git (OMZ git plugin provides many, like gco, gst, gp, gl, etc. Use `alias | grep git` to see all)
+# Modern replacements (provided by the laptop-osx brew list).
+command -v eza >/dev/null 2>&1 && {
+  alias ls='eza'
+  alias l='eza -lah --git'
+  alias ll='eza -lh --git'
+  alias la='eza -a'
+  alias tree='eza --tree'
+}
+command -v bat >/dev/null 2>&1 && alias cat='bat --paging=never'
+
+# Git
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias gcb='git checkout -b'
+# Jump to the repo's default branch (works for both `main` and `master`).
+alias gmain='git checkout "$(git symbolic-ref refs/remotes/origin/HEAD | sed s@^refs/remotes/origin/@@)" && git fetch && git pull'
+alias master='gmain'
 
-# Docker (OMZ docker plugin provides dco, dps, etc.)
-# Your custom project-specific aliases (keep if needed, commented out if not)
-# alias dockyr='docker run -d -p 8888:8888 -v $HOME/yr/your-round:/code --env DATABASE_PASSWORD=$YR_DB_PASS --env AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY --env AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID yrapp/yr_docker'
-# alias dockyrd='docker run -p 8888:8888 -v $HOME/yr/your-round:/code --env DATABASE_PASSWORD=$YR_DB_PASS --env AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY --env AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID yrapp/yr_docker'
-# alias dockyrbash='docker exec -ti $(docker ps -q) bash'
-# alias dockkill='docker kill $(docker ps -q)' # Be careful with this one!
-
-# Kubernetes (kubectl plugin provides 'k' alias)
+# Kubernetes
 alias k='kubectl'
 alias kctx='kubectl config use-context'
 alias kget='kubectl get'
@@ -170,56 +118,60 @@ alias kgp='kubectl get pods'
 alias kga='kubectl get all'
 alias kdep='kubectl get deployment'
 alias ksvc='kubectl get service'
-alias klogs='kubectl logs -f' # Follow logs for a pod
-alias kexec='kubectl exec -it' # Execute a command in a pod
+alias klogs='kubectl logs -f'
+alias kexec='kubectl exec -it'
 
-# Terraform (OMZ terraform plugin provides tf)
+# Terraform
 alias tf='terraform'
 alias tfi='terraform init'
 alias tfp='terraform plan'
 alias tfa='terraform apply'
 alias tfd='terraform destroy'
 
-# AWS (OMZ aws plugin provides some completion)
+# AWS
 alias aws-who='aws sts get-caller-identity'
-
-# EKSCTL
 alias e='eksctl'
+
+# AWS EKS / o8t profiles. Safe to keep here -- they only affect the current
+# shell when invoked.
+alias dev="export AWS_PROFILE=o8t-development && aws eks update-kubeconfig --region us-west-2 --name o8t-dev-20241213"
+alias staging="export AWS_PROFILE=o8t-staging && aws eks update-kubeconfig --region us-west-2 --name o8t-stag-20250210"
+alias prod="export AWS_PROFILE=o8t-production && aws eks update-kubeconfig --region us-west-2 --name o8t-prod-us-20250304"
+alias shared="export AWS_PROFILE=o8t-shared && aws eks update-kubeconfig --region us-west-2 --name o8t-shared-20250508"
 
 # ------------------------------------------------------------------------------
 # Functions
 # ------------------------------------------------------------------------------
 
-# Custom function - specific to user mjwalf's laptop-osx Ansible setup
-function laptop-osx () {
-  local playbook_path="/Users/$(whoami)/Developer/config/src/github.com/mjwalf/laptop-osx/ansible/playbook.yml"
-  local inventory_path="/Users/$(whoami)/Developer/config/src/github.com/mjwalf/laptop-osx/ansible/hosts"
-  local current_user=$(whoami)
-
-  if [ ! -f "$playbook_path" ] || [ ! -f "$inventory_path" ]; then
-    echo "Error: Ansible playbook or inventory not found at expected location."
-    echo "Playbook: $playbook_path"
-    echo "Inventory: $inventory_path"
+# Run the laptop-osx Ansible playbook. Optional first arg is a tag.
+function laptop-osx() {
+  local repo="${HOME}/Developer/config/src/github.com/mjwalf/laptop-osx"
+  if [[ ! -f "${repo}/ansible/playbook.yml" ]]; then
+    echo "laptop-osx: playbook not found at ${repo}/ansible/playbook.yml" >&2
     return 1
   fi
-
-  if [ -z "$1" ]; then
-    ansible-playbook "$playbook_path" -e install_user="$current_user" -i "$inventory_path" -K
+  if [[ -z "$1" ]]; then
+    ansible-playbook "${repo}/ansible/playbook.yml" \
+      -i "${repo}/ansible/hosts" \
+      -e "install_user=${USER}" -K
   else
-    ansible-playbook "$playbook_path" -e install_user="$current_user" -i "$inventory_path" -K --tags="$1"
+    ansible-playbook "${repo}/ansible/playbook.yml" \
+      -i "${repo}/ansible/hosts" \
+      -e "install_user=${USER}" -K --tags "$1"
   fi
 }
 
-# ------------------------------------------------------------------------------
-# TMUX Auto-Start (Optional - uncomment if desired)
-# ------------------------------------------------------------------------------
-# Automatically attach to a tmux session named 'hack' or create it if it doesn't exist.
-# Avoids starting tmux if already inside a tmux/screen session ($TERM starts with 'screen').
-# if command -v tmux &> /dev/null && [[ -z "$TMUX" ]] && [[ ! $TERM =~ screen ]]; then
-#   tmux attach -t hack || tmux new -s hack
-#   # Optional: exit the parent shell after tmux attaches/starts
-#   # exit 0
-# fi
+# Quick weather lookup, e.g. `weather sydney`.
+function weather() {
+  curl -s "http://wttr.in/$1" | head -7 | tail -6
+}
 
-
-# --- End of ~/.zshrc ---
+# ------------------------------------------------------------------------------
+# Local overrides
+# ------------------------------------------------------------------------------
+#
+# Drop machine-specific or secret config in ~/.zshrc.local; it's gitignored.
+if [[ -f "$HOME/.zshrc.local" ]]; then
+  source "$HOME/.zshrc.local"
+fi
+true

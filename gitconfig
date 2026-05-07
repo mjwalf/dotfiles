@@ -1,20 +1,21 @@
 [user]
-  name = "Mark Walford"
+  name  = Mark Walford
   email = mark.walford@o8t.com
+
+[init]
+  defaultBranch = main
 
 [color]
   ui = true
-
 [color "branch"]
   current = yellow reverse
-  local = yellow
-  remote = green
-
+  local   = yellow
+  remote  = green
 [color "diff"]
   meta = yellow bold
   frag = magenta bold
-  old = red bold
-  new = green bold
+  old  = red bold
+  new  = green bold
 
 [apply]
   whitespace = nowarn
@@ -25,48 +26,68 @@
 [fetch]
   prune = true
 
+[pull]
+  rebase = true
+
+[push]
+  default = current
+  autoSetupRemote = true
+
 [core]
-  autocrlf = false
-  quotepath = false
-  #pager = diff-highlight | diff-so-fancy | less -r
-  pager = diff-so-fancy | less -r
+  autocrlf     = false
+  quotepath    = false
+  excludesfile = ~/.dotfiles/gitignore
+  pager        = delta
+
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  navigate    = true
+  line-numbers = true
+  syntax-theme = Monokai Extended
+
+[diff]
+  colorMoved = default
+  tool       = vscode
+[difftool "vscode"]
+  cmd = code --wait --diff $LOCAL $REMOTE
+
+[merge]
+  conflictstyle = zdiff3
+  tool          = vscode
+[mergetool "vscode"]
+  cmd = code --wait $MERGED
 
 [alias]
-  st = status -sb
-  conflicts = "!git status --short | grep \"^UU\""
-  orphan = checkout --orphan
-  diff = diff --word-diff
-  log = log --decorate
+  st           = status -sb
+  conflicts    = "!git status --short | grep \"^UU\""
+  orphan       = checkout --orphan
+  log          = log --decorate
   which-release = name-rev --name-only
-  in-branch = branch --contains
-  in-upstream = cherry -v master
+  in-branch    = branch --contains
+  glog         = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  # Jump back to whatever the remote considers HEAD (main / master / etc).
+  main         = "!git checkout \"$(git symbolic-ref refs/remotes/origin/HEAD | sed s@^refs/remotes/origin/@@)\" && git fetch && git pull"
 
-[http]
-	cookiefile = /Users/mjwalf/.gitcookies
-
+# Always rewrite https GitHub URLs to ssh.
 [url "git@github.com:"]
-    insteadOf = https://github.com/
+  insteadOf = https://github.com/
 
-[url "git@gitlab.steady-fast.net:"]
-    insteadOf = https://gitlab.steady-fast.net/
+# ---------------------------------------------------------------------------
+# o8t-only: sign commits in repos whose remote points at the o8t org.
+#
+# `hasconfig:remote.*.url` matches if ANY remote URL globs to the pattern.
+# Requires Git >= 2.36 (Homebrew git is well past this).
+# ---------------------------------------------------------------------------
 
+[includeIf "hasconfig:remote.*.url:git@github.com:o8t/**"]
+  path = ~/.dotfiles/gitconfig.o8t
+
+[includeIf "hasconfig:remote.*.url:https://github.com/o8t/**"]
+  path = ~/.dotfiles/gitconfig.o8t
+
+# Local secrets / per-machine overrides (gpg.format, signingkey, custom URLs,
+# etc). Loaded last so it can override anything above.
 [include]
-    path = ~/.localsecrets
-
-[core]
-	excludesfile = /Users/mjwalf/.dotfiles/gitignore
-
-# Comment: Start of "Extra Block"
-# Comment: This is to unlock VSCode as your git diff and git merge tool
-[merge]
-    tool = vscode
-[mergetool "vscode"]
-    cmd = code --wait $MERGED
-[diff]
-    tool = vscode
-[difftool "vscode"]
-    cmd = code --wait --diff $LOCAL $REMOTE
-# VSCode Difftool
-## End of extra block
-[commit]
-	gpgsign = true
+  path = ~/.localsecrets
