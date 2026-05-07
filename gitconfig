@@ -3,7 +3,7 @@
   email = mark.walford@o8t.com
 
 [init]
-  defaultBranch = main
+  defaultBranch = master
 
 [color]
   ui = true
