@@ -6,6 +6,23 @@ get_git_dirty() {
   git diff --quiet || echo '*'
 }
 
+get_kube_context() {
+  # 1. Check if kubectl exists
+  if (( $+commands[kubectl] )); then
+    # 2. Get current context, suppress errors
+    local ctx=$(kubectl config current-context 2>/dev/null)
+    
+    if [[ -n "$ctx" ]]; then
+      # 3. CLEANUP: If it's a long AWS ARN, grab only the text after the last '/'
+      #    Transforms 'arn:aws...:cluster/my-cluster' -> 'my-cluster'
+      ctx=${ctx##*/}
+      
+      # 4. Output: Blue symbol and name
+      echo "%{$fg[cyan]%}$ctx%{$reset_color%}"
+    fi
+  fi
+}
+
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' unstagedstr '%F{red}*'   # display this when there are unstaged changes
@@ -23,7 +40,8 @@ theme_precmd () {
 
 setopt prompt_subst
 NEWLINE=$'\n'
-PROMPT='%{$fg[magenta]%}$(toon)%{$fg[cyan]%} %~/ %{$reset_color%}${vcs_info_msg_0_}${NEWLINE} 𝄞 %{$reset_color%}'
+# PROMPT='%{$fg[magenta]%}$(toon)%{$fg[cyan]%} %~/ %{$reset_color%}${vcs_info_msg_0_}${NEWLINE} 𝄞 %{$reset_color%}'
+PROMPT='%{$fg[magenta]%}$(toon)%{$fg[cyan]%} %~/ %{$reset_color%}${vcs_info_msg_0_}%{$fg[magenta]☸️ [%}$(get_kube_context)%{$fg[magenta]]%}${NEWLINE} 𝄞 %{$reset_color%}'
 
 autoload -U add-zsh-hook
 add-zsh-hook precmd theme_precmd

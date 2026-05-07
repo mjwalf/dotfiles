@@ -1,6 +1,5 @@
 # Compiled source #
 ###################
-*.com
 *.class
 *.dll
 *.exe
@@ -47,3 +46,4 @@ Thumbs.db
 # Terraform
 .terraform/
 *.tfstate.*
+.terraform.lock.hcl
